@@ -1,5 +1,213 @@
+#include <iostream>
+#include <stack>
+#include<vector>
+#include<string>
+
+
+using namespace std;
+/*使用vector类实现string的输入和输出*/
+/*
+int main()
+{
+	vector<string>str;
+	string s;
+	int a{0};
+	while (cin >> s)
+	{
+		str.push_back(s);
+		cout << str[a] << endl;
+		++a;
+	}
+	
+	return 0;
+}
+*/
+
+/*对C++ 模板库STL库stack栈的常用操作的练习*/
+/*
+int main()
+{
+	stack<string> a;
+	cout << "入栈过程："<<endl;
+	for (int i = 0; i < 5; i++)
+	{ 
+		string s;
+		cin >> s;
+		a.push(s);
+		cout <<"依次入栈的元素为："<< a.top()<<endl;
+		cout << "栈内元素个数为：" << a.size() << endl;
+	}
+	cout << "出栈过程:"<<endl;
+	while (!a.empty())
+	{
+		cout << "依次出栈的栈顶元素为：" << a.top() << endl;;
+		a.pop();
+		cout << "栈内元素个数为：" << a.size() << endl;
+	}
+	
+	return  0;
+}
+*/
+
+#include<iostream>  
+#include<stack>  
+#include<string>  
+using namespace std;
+
+/*判断符号间的优先关系函数
+*1表示>,0表示=,-1表示<
+*c1栈内的算符，c2栈外的算符
+*/
+int Judge(char c1, char c2)
+{
+	int a1, a2;
+	if ('+' == c1 || '-' == c1) a1 = 3;
+	if ('*' == c1 || '/' == c1)a1 = 5;
+	if ('(' == c1) a1 = 1;
+	if (')' == c1) a1 = 7;
+	if ('#' == c1) a1 = 0;
+
+	if ('+' == c2 || '-' == c2)a2 = 2;
+	if ('*' == c2 || '/' == c2)a2 = 4;
+	if ('(' == c2) a2 = 6;
+	if (')' == c2) a2 = 1;
+	if ('#' == c2) a2 = 0;
+	if (a1>a2) return 1;
+	if (a1 == a2) return 0;
+	if (a1<a2) return -1;
+}
+//符号运算函数  
+double run(char c, double d1, double d2)
+{
+	switch (c)
+	{
+	case '+':
+		return d1 + d2;
+		break;
+	case '-':
+		return d1 - d2;
+		break;
+	case'*':
+		return d1 * d2;
+		break;
+	case '/':
+		return d1 / d2;
+		break;
+	default:
+		return 0.0;
+		break;
+	}
+}
+
+double calculate(string str)
+{
+	const char * op = "+-*/()#";
+	//string str;
+	//cin >> str;
+	//给表达式字符串str添加'#'结束标识符  
+	str.append(1, '#');
+	stack<char> OPTR;//运算符栈  
+	stack<double> OPND;//操作数栈  
+	int a = -1;
+	//先将#符号入栈  
+	OPTR.push('#');
+	while (true)
+	{
+		int b = a + 1;
+		a = str.find_first_of(op, a + 1);
+		if (a == string::npos) break;
+		if (a != b)
+		{
+			string ss(str, b, a - b);
+			double d = atof(ss.c_str());
+			//数据先入栈  
+			OPND.push(d);
+		}
+		//运算符优先级比较  
+		int ju = Judge(OPTR.top(), str[a]);
+		if (-1 == ju)//栈外优先级大直接入栈  
+		{
+			OPTR.push(str[a]);
+		}
+		if (0 == ju)//栈内外优先级相等则出栈  
+		{
+			OPTR.pop();
+		}
+		if (1 == ju)//栈内优先级大,出栈进行运算  
+		{
+			double d1 = OPND.top();
+			OPND.pop();
+			double d2 = OPND.top();
+			OPND.pop();
+			d1 = run(OPTR.top(), d2, d1);
+			//运算结果入栈  
+			OPND.push(d1);
+			OPTR.pop();
+			a--;
+		}
+	}
+	//删除表达式最后的'#'结束标识符  
+	str.erase(str.length() - 1, 1);
+	return OPND.top();
+}
+int main()
+{
+	int n;	
+	cin >> n;
+	const int m = n;
+	vector <double> display(n+1);
+	//vector <string> biaodashi(n+1);
+	while (n > 0)
+	{
+		string str;
+		cin >> str;
+		//biaodashi[n] = str;
+		double result = calculate(str);
+		display[n] = result;
+		n--;
+	};
+	for(int j=m;j>0;j--)
+	cout /*<< biaodashi[j] << " = "*/ << display[j] << endl;
+	return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*经典算法-算术表达式求值
-析用堆栈解析算术表达式的基本方法。给出的示例代码能解析任何包括+，-，*，/，()和0到9数字组成的算术表达式。
+思想主要是用到了栈先进后出的数据结构。在该程序中建有两个栈：一个用于存储运算符，另一个用于存储操作数或运算结果。基本
+过程是：
+
+（1）：首先设置操作数栈为空栈，设置运算符栈以‘#’为栈底元素（其优先级最低）。
+
+（2）：通过为栈内栈外运算符设置值而比较其优先级
+
+（3）：依次去找到表达式中的所有运算符和操作数，对于操作数直接入栈，运算符则和运算符栈的
+
+栈顶运算进行比较优先级，若栈内优先级大，则进行相应操作并操作数和栈内运算符都出栈，若优先级相等只需
+
+栈内运算符出栈继续查找下一个运算符即可，若栈内优先级低则栈外运算符入栈。依次循环知道分析完表达式中
+
+的所有运算符和操作数即可。
+
+（4）：最后在操作数栈中将只会剩下唯一的一个元素，而该元素也将就会是所求表达式的值。
 
 2 中缀表达式和后缀表达式
 
@@ -21,95 +229,7 @@
 9 逻辑或||
 大致的规律是，一元运算符 > 二元运算符 > 多元运算符。
 */
-#include<iostream>
-#include<string.h> 
-#include<stdlib.h>
-using namespace std;
-template <class T>
-class stack
-{
-public:
-	stack() { top = -1; SIZE = 2; buffer = new T[SIZE]; }; //SIZE=2（过小）用于测试PUSH函数 
-	~stack() { if (buffer) delete[]buffer; };//析构函数
-	bool push(T element); //入栈
-	T& pop();//出栈
-	int size() { return top + 1; };//取元素个数
-	bool isempty() { return top == -1; }
-	void clear() { top = -1; }
-private:
-	T * buffer;
-	int top;
-	int SIZE;
-};
-template <class T>
-bool stack<T>::push(T element)
-{
-	top++;
-	if (top>SIZE - 1)
-	{
-		SIZE += 10;
-		T* temp = new T[SIZE];
-		//  for(int i=0;i<SIZE-10;i++)
-		// temp[i]=buffer[i];//将对象 COPY 
-		memcpy((void*)temp, (void*)buffer, (SIZE - 10) * sizeof(T));//两种方法都可 
-		delete buffer;
-		buffer = temp;
-	}//满
-	buffer[top] = element;
-	return true;
-}
-template <class T>
-T& stack<T>::pop()
-{
-	return buffer[top--];
-}
-bool IsOperand(char ch)
-{
-	char operators[] = { '+', '-', '*', '/', '(', ')' };
-	for (int i = 0; i<6; i++)
-		if (ch == operators[i])
-			return false;
-	return true;
-}
-int Priority(char ch)
-{
-	int priority;
-	switch (ch)
-	{
-	case '+':
-		priority = 1;
-		break;
-	case '-':
-		priority = 1;
-		break;
-	case '*':
-		priority = 2;
-		break;
-	case '/':
-		priority = 2;
-		break;
-	default:
-		priority = 0;
-		break;
-	}
-	return priority;
-}
-double GetValue(char op, double ch1, double ch2)
-{
-	switch (op)
-	{
-	case '+':
-		return ch2 + ch1;
-	case '-':
-		return ch2 - ch1;
-	case '*':
-		return ch2 * ch1;
-	case '/':
-		return ch2 / ch1;
-	default:
-		return 0;
-	}
-}
+
 //将中缀表达式解析成后缀表达式
 /*
 中缀表达式翻译成后缀表达式的方法如下：
@@ -139,12 +259,3 @@ c：如果ch不是')'或者'('，那么就和堆栈顶点位置的运算符top做优先级比较。
 （13）读取F，是运算数，直接输出到output字符串，output = AB-C*D+EF
 （14）原始字符串已经读取完毕，将栈里面剩余的运算符依次弹出，output = AB-C*D+EF/-
 */
-char* Parse(const char *expr)
-{
-	//  const char *exp = expr;
-	int i, j = 0;
-	char ch, ch1;
-	const char* A = expr;
-	char *B = new char[strlen(expr) + 1]; //最后生成的后缀表达式
-	stack<char>  myStack;
-	for (i = 0; ch = A[i]; i++)//A[I]='
