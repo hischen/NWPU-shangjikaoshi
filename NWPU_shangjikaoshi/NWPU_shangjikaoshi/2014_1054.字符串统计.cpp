@@ -38,8 +38,8 @@
 //	return  0;
 //}
 
-/*另一种实现方法：利用C标准函数库中的ctype.h来实现。具体说明可参考http://www.runoob.com/cprogramming/c-standard-library-ctype-h.html
-代码如下*/
+/*另一种实现方法：利用C标准函数库中的ctype.h来实现。具体说明可参考http://www.runoob.com/cprogramming/c-standard-library-ctype-h.html*/
+/*代码如下*/
 
 #include<cctype>
 #include<cstdio>
