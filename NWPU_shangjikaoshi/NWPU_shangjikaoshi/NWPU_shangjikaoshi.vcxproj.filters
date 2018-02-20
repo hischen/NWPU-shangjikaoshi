@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2015_1221.计算单词的个数.cpp">
+    <ClCompile Include="2015_1165.六数码问题.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
