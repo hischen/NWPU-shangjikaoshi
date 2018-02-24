@@ -22,10 +22,10 @@ int main()
 	{
 		for (j = 0; j < M; j++)
 		{
-			cout<<caochang[i][j]<<' ';
+			cout << caochang[i][j] << ' ';
 		}
 		cout << endl;
-	
+	}
 
 	system("pause");
 	return 0;
