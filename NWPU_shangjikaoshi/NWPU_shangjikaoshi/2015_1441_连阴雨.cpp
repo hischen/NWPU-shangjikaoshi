@@ -13,8 +13,8 @@ int main()
 	{
 		for (j = 0; j < M; j++)
 		{
-			//scanf("%c", &caochang[i][j]);
-			cin >> caochang[i][j];
+			scanf("%c", &caochang[i][j]);
+			//cin >> caochang[i][j];
 		}
 		//fflush(stdin); rewind(stdin);
 	}
