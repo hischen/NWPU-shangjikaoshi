@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2015_1422.输出命题公式的真值表.cpp">
+    <ClCompile Include="2014_1209_滑雪.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
