@@ -168,6 +168,7 @@ int main()
 	};
 	for(int j=m;j>0;j--)
 	cout /*<< biaodashi[j] << " = "*/ << display[j] << endl;
+	system("pause");
 	return 0;
 }
 

@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2011_2_打印杨辉三角形.cpp">
+    <ClCompile Include="2014_1080-素数筛法.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
