@@ -18,7 +18,7 @@
     <ClCompile Include="2017_软件工程_5.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="2009_合并有序数组.cpp">
+    <ClCompile Include="2006_2009.第二题_正方形.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
