@@ -1,0 +1,95 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<conio.h>
+#define max 100 
+int a[max],m[max][max],f[max][max];
+int n;
+int c[max];
+
+int add(int x)
+{
+	if(x!=n)
+	return ++x;
+	return 1;
+}
+
+int see(int x)
+{
+	if(x%n==0)
+		return n;
+	return (x%n);
+}
+
+int fun(int i,int j)
+{
+	if(i==j)
+	   return 0;
+	if(see(i+1)==j)
+		 return m[i][j];
+	int min,k,temp;
+	k=i;
+	while(k!=j)
+	{
+		if(k==i)
+		{ 
+			min=f[i][k]+f[add(k)][j]+m[i][k]+m[add(k)][j];
+			k=add(k);
+			continue;    
+		} 
+		temp=f[i][k]+f[add(k)][j]+m[i][k]+m[add(k)][j];
+		if(temp<min)
+		min=temp;
+		k=add(k);
+	}
+	return min;
+}
+
+void main()
+{
+	int i,j,min,temp=0,t,p=0,k;
+	scanf("%d",&n);
+	while(n!=0)
+	{
+		for(i=1;i<=n;i++)
+			scanf("%d",&a[i]);
+		for(i=1;i<=n;i++)
+		{
+			for(j=1;j<=n;j++)
+			{
+				k=i;
+				while(k!=j)
+				{
+					temp+=a[k];
+					k=add(k);    
+				}
+				temp+=a[k];
+				m[i][j]=temp;
+				temp=0;
+			} 
+		}
+		for(temp=1;temp<=n;temp++)
+			for(i=1,j=temp;i<=n;i++)
+			{
+	
+				f[i][see(j)]=fun(i,see(j));
+				j=add(j);   
+			}
+		min=f[1][n];
+		for(i=2;i<=n;i++)
+		{ 
+			if(f[i][i-1]<min)
+			min=f[i][i-1];
+		}
+		c[p++]=min;
+		for(i=0;i<max;i++)
+			for(j=0;j<max;j++)
+			{
+				m[i][j]=0;
+				f[i][j]=0;
+			}
+		temp=0;
+		scanf("%d",&n);
+	}
+	for(i=0;i<p;i++)
+		printf("%d\n",c[i]);
+}

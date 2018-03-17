@@ -1,0 +1,59 @@
+#include<stdio.h>
+#include<malloc.h>
+
+int n;
+int *a,*l;
+
+void main()
+{
+	int i,j,max,x;
+	scanf("%d",&n);
+	a=(int *)malloc(sizeof(int)*n);
+	l=(int *)malloc(sizeof(int)*n);
+	for(i=0;i<n;i++)
+		scanf("%d",&a[i]);
+
+	l[n-1]=1;
+	for(i=n-2;i>=0;i--)
+	{
+		max=0;
+		for(j=i+1;j<n;j++)
+		{
+			if(a[j]<=a[i])
+			{
+				if(l[j]>max)
+					max=l[j];
+			}
+		}
+		l[i]=max+1;
+	}
+	max=0;
+    for(i=0;i<n;i++)
+	{
+		printf("%-4d",l[i]);
+		if(l[i]>max)
+		{
+			max=l[i];
+			x=i;
+		}
+	}
+	printf("\n");
+
+	printf("max=%d\n\n",max);
+
+	printf("\n\n**********************打导弹的序列如下***********\n\n");
+	printf("%d  ",a[x]);
+
+	for(i=x+1;i<n;i++)
+	{
+		if(a[i]<=a[x] && l[i]==max-1)
+		{
+			printf("%d  ",a[i]);
+			x=i;			
+			max=l[i];
+		}		
+	}
+    printf("\n");
+  
+
+}

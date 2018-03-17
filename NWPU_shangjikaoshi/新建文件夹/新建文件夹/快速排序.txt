@@ -1,0 +1,52 @@
+#include<stdio.h>
+#include<malloc.h>
+int n;
+int q=1;
+
+int Partition(int *m,int low,int high)
+{
+	int i;
+	m[0]=m[low];
+	while(low<high)
+	{
+		while(low<high && m[high]>=m[0])high--;
+		m[low]=m[high];
+		while(low<high && m[low]<=m[0])low++;
+		m[high]=m[low];
+	}
+	m[low]=m[0];
+
+	printf("\n第%d次排序后：\n",q++);
+	for(i=1;i<=n;i++)
+		printf("%d ",m[i]);
+	printf("\n");
+
+	return low;
+}
+
+void QuickSort(int *m,int low,int high)
+{
+	if(low<high)
+	{
+		int piv=Partition(m,low,high);
+		QuickSort(m,low,piv-1);
+		QuickSort(m,piv+1,high);
+	}
+}
+void main()
+{
+	int i;
+	int *m;
+	printf("请输入要排序的个数：\n");
+	scanf("%d",&n);
+	m=(int *)malloc(sizeof(int)*(n+1));
+	printf("请输入要排序的数字：\n");
+	for(i=1;i<=n;i++)
+		scanf("%d",&m[i]);
+	QuickSort(m,1,n);
+
+	printf("\n最后一次排序后：\n");
+	for(i=1;i<=n;i++)
+		printf("%d ",m[i]);
+	printf("\n");
+}

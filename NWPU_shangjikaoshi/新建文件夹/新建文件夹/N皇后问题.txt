@@ -1,0 +1,49 @@
+#include<stdio.h>
+#include<malloc.h>
+#include<math.h>
+void init();
+void search(int);
+int canplace(int row,int col);
+int n;
+int count=0;
+int *a;
+
+void main()
+{
+	init();
+	search(0);
+	printf("%d\n");
+}
+void init()
+{
+	int i;
+	scanf("%d",&n);
+	a=(int *)malloc(sizeof(int)*n);
+	for(i=0;i<n;i++)
+		a[i]=100;
+}
+int canplace(int row,int col)
+{
+	int i;
+	for(i=0;i<row;i++)
+		if((abs(i-row)==abs(a[i]-col))||(a[i]==col))
+			return 0;
+	return 1;
+
+}
+void search(int m)
+{
+	int i;
+	if(m>=n)
+		count++;
+	else
+	{
+		for(i=0;i<n;i++)
+			if(canplace(m,i))
+			{
+				a[m]=i;
+				search(m+1);
+				a[m]=-1;
+			}
+	}
+}

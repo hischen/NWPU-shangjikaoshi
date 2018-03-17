@@ -1,0 +1,66 @@
+#include<stdio.h>
+#include<malloc.h>
+
+int m[101][101],s[101][101];
+
+
+void traceback(int i,int j)
+{
+	if(i==j)
+		return;
+	traceback(i,s[i][j]);
+	traceback(s[i][j]+1,j);
+	printf("A%d , %d and A%d , %d\n\n",i,s[i][j],(s[i][j]+1),j);
+}
+
+void main()
+{
+	int i,j,k,r,temp,p[101];
+	int n;
+	scanf("%d",&n);
+	for(i=0;i<=n;i++)
+		scanf("%d",&p[i]);
+	for(r=1;r<=n-1;r++)
+	{
+		for(i=1;i<=n-r;i++)
+		{
+			j=i+r;
+			m[i][j]=m[i+1][j]+p[i-1]*p[i]*p[j];
+			s[i][j]=i;
+			for(k=i+1;k<j;k++)
+			{
+				temp=m[i][k]+m[k+1][j]+p[i-1]*p[k]*p[j];
+				if(temp<m[i][j])
+				{
+					m[i][j]=temp;
+					s[i][j]=k;
+				}
+			}
+		}
+	}
+
+	printf("\n\n****************m[][]数组如下**************************\n\n");
+	for(i=1;i<=n;i++)
+	{
+		for(j=1;j<=n;j++)
+			printf("%-8d",m[i][j]);
+		printf("\n");
+	}
+
+	printf("\n\n****************s[][]数组如下**************************\n\n");
+	for(i=1;i<=n;i++)
+	{
+		for(j=1;j<=n;j++)
+			printf("%-5d",s[i][j]);
+		printf("\n");
+	}
+
+	printf("\n\n****************结果如下**************************\n\n");
+	printf("%d\n",m[1][n]);
+
+	traceback(1,n);
+}
+
+
+	
+

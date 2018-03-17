@@ -1,0 +1,60 @@
+#include<stdio.h>
+#include<malloc.h>
+
+int TreeRoot(int m);
+
+typedef struct IntLink
+{
+	int data;
+	struct IntLink *next;
+}nLink,*Link;
+
+struct IntLink * Init()
+{
+	Link head,p,q;
+	head=p=(Link)malloc(sizeof(nLink));
+
+	q=(Link)malloc(sizeof(nLink));
+	scanf("%d",&q->data);
+	while(q->data!=0)
+	{
+		p->next=q;
+		p=q;
+		q=(Link)malloc(sizeof(nLink));
+		scanf("%d",&q->data);
+	}
+	p->next=NULL;
+	return head;
+}
+
+void PrintTreeRoot(Link head)
+{
+	Link p=head->next;
+	printf("\n\n\n*************************************\n");
+	do
+	{
+		printf("%d\n",(TreeRoot(p->data)));
+		p=p->next;
+	}while(p!=NULL);
+
+}
+
+int TreeRoot(int m)
+{
+	int sum=0;
+	while(m!=0)
+	{
+		sum+=m%10;
+		m=m/10;
+	}
+	if(sum>10)
+		TreeRoot(sum);
+	else
+		return sum;
+}
+
+void main()
+{
+	Link head=Init();  
+	PrintTreeRoot(head);
+}

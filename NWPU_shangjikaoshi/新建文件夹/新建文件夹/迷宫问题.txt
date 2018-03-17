@@ -1,0 +1,143 @@
+#include<stdio.h>
+#include<malloc.h>
+#define N 6
+
+int x1,y1,x2,y2;
+
+int count=1;
+int flag=1;
+
+void readdata(int a[N][N],int b[N][N])
+{
+	int i,j;
+	char *str=(char *)malloc(sizeof(char)*N);
+	scanf("%d%d%d%d",&x1,&y1,&x2,&y2);
+	getchar();
+	for(i=0;i<N;i++)
+	{
+		gets(str);
+		for(j=0;j<N;j++)
+		{
+			if(str[j]=='.')
+				a[i][j]=0;
+			else
+				a[i][j]=-1;
+		}
+	}
+	for(i=0;i<N;i++)
+		for(j=0;j<N;j++)
+			b[i][j]=a[i][j];
+}
+int canplace(int row,int col,int a[][N])
+{
+	if(row>=0 && row<N && col>=0 && col<N && a[row][col]==0)
+		return 1;
+	else
+		return 0;
+}
+void search1(int row,int col,int a[][N],int f)
+{
+	a[row][col]=1;
+	if(f==0)
+		if(row==x2 && col==y2)
+			flag=0;
+	if(f==1)
+		if(row==x1 && col==y1)
+			flag=0;
+	int i,j;
+	printf("\n\n******第%d次打印**********\n\n",count++);
+	for(i=0;i<N;i++)
+	{
+		for(j=0;j<N;j++)
+			printf("%5d",a[i][j]);
+		printf("\n");
+	}
+
+	if(canplace(row,col+1,a) && flag)
+		search1(row,col+1,a,f);		//向右
+
+	if(canplace(row+1,col,a) && flag)
+		search1(row+1,col,a,f);		//向下
+
+	if(canplace(row-1,col,a) && flag)
+		search1(row-1,col,a,f);		//向上
+
+	if(canplace(row,col-1,a) && flag)
+		search1(row,col-1,a,f);		//向左
+}
+void search2(int row,int col,int a[][N],int f)
+{
+	a[row][col]=1;
+	if(f==0)
+		if(row==x2 && col==y2)
+			flag=0;
+	if(f==1)
+		if(row==x1 && col==y1)
+			flag=0;
+	int i,j;
+	printf("\n\n******第%d次打印**********\n\n",count++);
+	for(i=0;i<N;i++)
+	{
+		for(j=0;j<N;j++)
+			printf("%5d",a[i][j]);
+		printf("\n");
+	}
+
+	
+
+
+
+
+
+	if(canplace(row,col-1,a) && flag)
+		search2(row,col-1,a,f);		//向左
+
+		if(canplace(row-1,col,a) && flag)
+		search2(row-1,col,a,f);		//向上
+
+		if(canplace(row+1,col,a) && flag)
+		search2(row+1,col,a,f);		//向下
+
+
+	if(canplace(row,col+1,a) && flag)
+		search2(row,col+1,a,f);		//向右
+}
+void main()
+{
+	int i,j;
+	int a[N][N],b[N][N];
+	readdata(a,b);
+	search1(x1,y1,a,0);
+
+	if(a[x2][y2]==1)
+	{
+		printf("Yes\n");
+
+
+	    printf("\n\nXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n\n");
+	    count=1;
+		flag=1;
+		search2(x2,y2,b,1);
+		for(i=0;i<N;i++)
+		{
+			for(j=0;j<N;j++)
+			{
+				if((a[i][j]==1) && (b[i][j]==1))
+					printf("*   ");
+				else
+					printf("@   ");
+			}
+			printf("\n");
+		}
+	}
+	else
+		printf("No\n");
+
+	/*printf("\n\n**********************************\n\n");
+	for(i=0;i<N;i++)
+	{
+		for(j=0;j<N;j++)
+			printf("%-5d",a[i][j]);
+		printf("\n");
+	}*/
+}

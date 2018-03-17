@@ -1,0 +1,77 @@
+#include<stdio.h>
+#include<malloc.h>
+
+typedef struct Number
+{
+	int data;
+	struct Number *next;
+}nLink,*Link;
+void Init(Link head,int m)
+{
+	int i;
+	Link p,q;
+	p=head;
+	for(i=0;i<m;i++)
+	{
+		q=(Link)malloc(sizeof(nLink));
+		scanf("%d",&q->data);
+		p->next=q;
+		p=q;
+	}
+	p->next=NULL;
+}
+Link LinkSort(Link ahead,Link bhead)
+{
+	Link p,q,chead,s;
+	s=chead=ahead;
+	p=ahead->next;
+	q=bhead->next;
+	while(p!=NULL &&q!=NULL)
+	{
+		if(p->data<=q->data)
+		{
+			s->next=p;
+			s=p;
+			p=p->next;
+		}
+		else
+		{
+			s->next=q;
+			s=q;
+			q=q->next;
+		}
+	}
+	if(p!=NULL)
+		s->next=p;
+	if(q!=NULL)
+		s->next=q;
+	return chead;
+}
+
+void LinkPrint(Link chead)
+{
+	Link p=chead->next;
+	if(chead!=NULL)
+	{
+		do
+		{
+			printf("%d\n",p->data);
+			p=p->next;
+		}while(p!=NULL);
+	}
+}
+
+void main()
+{
+	int i,j;
+	int m,n;
+	Link ahead,bhead,chead;
+	ahead=(Link)malloc(sizeof(nLink));
+	bhead=(Link)malloc(sizeof(nLink));
+	scanf("%d",&m);
+	Init(ahead,m);
+	scanf("%d",&n);
+	Init(bhead,n);
+	chead=LinkSort(ahead,bhead);
+	LinkPrint(chead);
+}

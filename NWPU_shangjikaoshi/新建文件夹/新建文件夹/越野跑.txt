@@ -1,0 +1,44 @@
+#include<stdio.h>
+#include<malloc.h>
+int M,T,U,F,D;
+char *s;
+
+void Init()
+{
+	int i;
+	scanf("%d%d%d%d%d",&M,&T,&U,&F,&D);
+	getchar();
+	s=(char *)malloc(sizeof(char)*T);
+	for(i=0;i<T;i++)
+	{
+		scanf("%c",&s[i]);
+		getchar();
+	}
+}
+void Maxlength()
+{
+	int i,length=0,num=0;
+	for(i=0;i<T;i++)
+	{
+		if(s[i]=='u')
+			length+=U+D;
+		else if(s[i]=='f')
+			length+=2*F;
+		else
+			length+=D+U;
+		if(length<=M)
+		{
+			num++;
+		}
+		else
+		{
+			printf("%d\n",num);
+			break;
+		}		
+	}
+}
+void main()
+{
+	Init();
+	Maxlength();
+}

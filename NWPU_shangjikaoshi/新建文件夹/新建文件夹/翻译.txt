@@ -1,0 +1,68 @@
+#include<stdio.h>
+#include<string.h>
+int InputSrting(char a[][10])
+{
+	int i=0,j=0;
+	char c;
+	while((c=getchar())!='\n')
+	{
+		if(c!=' ')
+		{
+			a[i][j]=c;
+			j++;
+		}
+		else
+		{
+			for(;j<10;j++)
+				a[i][j]='\0';
+			i++;
+			j=0;
+		}
+	}
+	for(;j<10;j++)
+		a[i][j]='\0';
+	return (i+1);
+
+}
+void copmareString(char a[][10],char b[][10],int alength,int blength)\
+{
+	int i,j;
+	int flag=1;
+	if(alength!=blength)
+	{
+		printf("No\n");
+	}
+	else
+	{
+		for(i=0;i<alength-1;i++)
+		{
+			for(j=i+1;j<alength;j++)
+				if(strcmp(a[i],a[j])==0)
+				{
+					if(strcmp(b[i],b[j])!=0)
+					{
+						flag=0;
+						break;
+					}						
+
+				}
+		}		
+	}
+	if(flag==0)
+	{
+		printf("No\n");
+	}
+	else
+	{
+		printf("Yes\n");
+	}
+}
+void main()
+{
+	int i=0,j=0;
+	int alength,blength;
+	char a[100][10],b[100][10];
+	alength=InputSrting(a);
+	blength=InputSrting(b);
+	copmareString(a,b,alength,blength);
+}

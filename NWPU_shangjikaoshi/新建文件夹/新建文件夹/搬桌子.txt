@@ -1,0 +1,64 @@
+#include<stdio.h>
+#include<malloc.h>
+int n,m;
+struct Desk
+{
+	int start;
+	int end;
+}*a;
+int *used;
+
+void sort()
+{
+	int i,j,k;
+	struct Desk temp;
+	for(i=0;i<m-1;i++)
+	{
+		k=i;
+		for(j=i+1;j<m;j++)
+			if(a[j].start<a[k].start ||(a[j].start==a[k].start && a[j].end<a[k].end))
+				k=j;
+		if(i!=k)
+		{
+			temp=a[i];
+			a[i]=a[k];
+			a[k]=temp;
+		}
+	}
+}
+int MoveDesk()
+{
+	int i,j,k;
+	int count=0;
+	for(i=0;i<m;i++)
+	{
+		if(used[i])
+		{
+			k=i;
+			for(j=i+1;j<m;j++)
+			{
+				if(a[j].start>=a[k].end &&used[j]==1)
+				{
+					used[j]=0;
+					k=j;
+				}
+			}
+			count++;
+		}
+	}
+	return count;
+}
+void main()
+{
+	int i;
+	scanf("%d%d",&n,&m);
+	a=(struct Desk *)malloc(sizeof(struct Desk)*m);
+	used=(int *)malloc(sizeof(int)*m);
+	for(i=0;i<m;i++)
+	{
+		used[i]=1;
+		scanf("%d%d",&a[i].start,&a[i].end);
+	}
+	sort();
+	printf("%d\n",MoveDesk());
+}

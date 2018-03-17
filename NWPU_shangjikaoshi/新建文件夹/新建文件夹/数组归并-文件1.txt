@@ -1,0 +1,72 @@
+#include<stdio.h>
+
+#define maxlen 100
+struct DataList
+{
+	int data[maxlen];
+	int length;
+}a,b,c;
+void ReadFileData(char * filename,struct DataList *m)
+{
+	int i=0;
+	FILE *fp;
+	if((fp=fopen(filename,"r"))==NULL)
+		printf("Error\n");
+	while(!feof(fp))
+	{
+		fscanf(fp,"%d",&m->data[i++]);
+	}
+	if(m->data[i-1]==0)
+		m->length=i-1;
+	else
+		m->length=i;
+
+	//for(i=0;i<m->length;i++)
+	//	printf("%d\n",m->data[i]);
+	fclose(fp);
+}
+void OutPutFile(char * filename)
+{
+	int i;
+	FILE *fp;
+	if((fp=fopen(filename,"w"))==NULL)
+		printf("Open file failed\n");
+	for(i=0;i<c.length;i++)
+		fprintf(fp,"%d\n",c.data[i]);
+	fclose(fp);
+}
+void MergeData()
+{
+	int i=0,j=0,k=0;
+	while(i<a.length && j<b.length)
+	{
+		if(a.data[i]<=b.data[j])
+			c.data[k++]=a.data[i++];
+		else
+			c.data[k++]=b.data[j++];
+	}
+	while(i<a.length)
+		c.data[k++]=a.data[i++];
+	while(j<b.length)
+		c.data[k++]=b.data[j++];
+	c.length=k;
+
+	for(i=0;i<c.length;i++)
+		printf("%d\n",c.data[i]);
+}
+void main()
+{
+	char filename1[50],filename2[50],filename3[50];
+	printf("请输入第一个文件名：\n");
+	gets(filename1);
+	printf("请输入第二个文件名：\n");
+	gets(filename2);
+
+	ReadFileData(filename1,&a);
+	ReadFileData(filename2,&b);
+	MergeData();
+
+	printf("请输入输出的文件名：\n");
+	gets(filename3);
+	OutPutFile(filename3); 
+}

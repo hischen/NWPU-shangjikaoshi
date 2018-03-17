@@ -1,0 +1,42 @@
+#include<stdio.h>
+#include<malloc.h>
+
+int n,f;
+int *r;
+
+int CowNumber()
+{
+	int i,j,k;
+	int **cower;
+	cower=(int **)malloc(sizeof(int *)*2);
+	for(i=0;i<2;i++)
+		cower[i]=(int *)malloc(sizeof(int)*f);
+	for(i=0;i<2;i++)
+		for(j=0;j<f;j++)
+			cower[i][j]=0;
+	cower[0][0]=1;
+	cower[1][0]=1;
+
+	for(i=0;i<n;i++)
+	{
+		for(j=0;j<f;j++)
+		{
+			cower[1][(j+r[i])%f]+=cower[0][j];
+			cower[1][(j+r[i])%f]%=100000000;
+		}
+		for(k=0;k<f;k++)
+			cower[0][k]=cower[1][k];
+	}
+
+	return (cower[1][0]-1);
+}
+void main()
+{
+	int i;
+	scanf("%d%d",&n,&f);
+	r=(int *)malloc(sizeof(int)*n);
+	for(i=0;i<n;i++)
+		scanf("%d",&r[i]);
+	printf("%d\n",CowNumber());
+
+}
