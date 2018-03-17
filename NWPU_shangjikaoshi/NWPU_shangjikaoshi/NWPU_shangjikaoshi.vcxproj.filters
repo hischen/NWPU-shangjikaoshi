@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2012_逆波兰表达式求值.cpp">
+    <ClCompile Include="最小公倍数.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
