@@ -37,7 +37,7 @@ int catalan(int n) {
 	if (n == 2)return 1;
 	int res = 0;
 	for (int i = 1; i <= n - 1; i++) {
-		res += catalan(i)*catalan(n - i);
+		res =res+ catalan(i)*catalan(n - i);
 	}
 	return res;
 

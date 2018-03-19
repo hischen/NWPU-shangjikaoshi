@@ -24,11 +24,11 @@ void bfs(int x, int y)
 		int ny = y + near[l][1];
 		if (nx <0 || ny <0 || nx > N || ny > M) continue;
 		if (caochang[nx][ny] == '.') continue;
-		if (caochang[nx][ny] == true)  continue;
-		caochang[nx][ny] = true;
+		if (marked[nx][ny] == true)  continue;
+		marked[nx][ny] = true;
 		bfs(nx, ny);
 	}
-		return;
+		//return;
   
 }
 int main()
@@ -37,7 +37,7 @@ int main()
 	int i,j;
 	
 	
-	scanf("%d %d", &M, &N);
+	scanf("%d %d", &N, &M);
 	for (i = 0; i < N; i++)
 	{
 		for (j = 0; j < M; j++)
