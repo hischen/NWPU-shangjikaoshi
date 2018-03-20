@@ -20,6 +20,9 @@ afbecd
 #include<string>
 #include<string.h>
 #include<algorithm>
+#include <iostream>
+#include<cstring>
+#include<cstdio>
 using namespace std;
 
 //string a, b;
@@ -88,21 +91,25 @@ using namespace std;
 int main()
 {
 	char s1[100], s2[100]; char s[200];
-	while (scanf("%s%s", &s1,&s2) != EOF)
+	//while (scanf("%s%s", &s1,&s2) != EOF)
+	gets_s(s1);
+	gets_s(s2);
+	//{
+	size_t d1 = strlen(s1);
+	size_t d2 = strlen(s2);
+	int k = 0;
+	int i = 0, j = d2 - 1;
+	while (i < d1 || j >= 0)
 	{
-		size_t l = strlen(s1);
-		int k = 0;
-		int i = 0, j = l - 1;
-		while(i < l&&j>=0)
-		{
-			s[k++] = s1[i++];
-			s[k++] = s2[j--];
-		}
-		for (i = 0; i < k; i++)
-		{
-			printf("%c", s[i]);
-		}
-		printf("\n");
+		if (i<d1) { s[k++] = s1[i++]; }
+		if (j >= 0) { s[k++] = s2[j--]; }
 	}
+	for (i = 0; i < k; i++)
+	{
+		printf("%c", s[i]);
+	}
+	printf("\n");
+	//}
+	system("pause");
 	return 0;
 }

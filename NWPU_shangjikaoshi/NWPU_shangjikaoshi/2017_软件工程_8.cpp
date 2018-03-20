@@ -8,6 +8,30 @@
 using namespace std;
 #include <stdlib.h>  
 
+#include <iostream>
+#include<stack>
+#include<string>
+#include<cstdio>
+using namespace std;
+int main()
+{
+	stack<string> nixu;
+	string s;
+	while (cin >> s)
+	{
+
+		nixu.push(s);
+		if (getchar() == '\n') break;
+	}
+	while (!nixu.empty())
+	{
+		cout << nixu.top() << ' ';
+		nixu.pop();
+	}
+	return 0;
+	system("pause");
+}
+
 //void ReverseWord(char *front, char *end)
 //{
 //	while (front<end)
@@ -57,41 +81,41 @@ using namespace std;
 
 /*************************************************************************************************************/
 //#include "stdafx.h"
-#include <iostream>
-#include <string>
-#include <stack>
-using namespace std;
-int main(int arc, char** argv)
-{
-	string str;// = "I come from liaoning.";
-	getline(cin, str);
-	stack<string> works;
-	int len = str.length();
-	while (1)
-	{
-		int start = str.find_first_not_of(" "); cout << start << ' ';
-			int end = str.find_first_of(" "); cout << end << endl;
-		int wlen = end - start; //cout << wlen<<endl;
-		if (end != -1)
-		{
-			string temp = str.substr(start, wlen);
-			works.push(temp);
-		}
-		else
-		{
-			works.push(str);
-			break;
-		}
-		str = str.substr(end + 1, len - wlen); cout << str << endl;
-	}
-	while (!works.empty())
-	{
-		string temp = works.top();
-		cout << temp << " ";
-		works.pop();
-	}
-	cout << endl;
-	system("pause");
-	return 0;
-}
+//#include <iostream>
+//#include <string>
+//#include <stack>
+//using namespace std;
+//int main(int arc, char** argv)
+//{
+//	string str;// = "I come from liaoning.";
+//	getline(cin, str);
+//	stack<string> works;
+//	int len = str.length();
+//	while (1)
+//	{
+//		int start = str.find_first_not_of(" "); cout << start << ' ';
+//			int end = str.find_first_of(" "); cout << end << endl;
+//		int wlen = end - start; //cout << wlen<<endl;
+//		if (end != -1)
+//		{
+//			string temp = str.substr(start, wlen);
+//			works.push(temp);
+//		}
+//		else
+//		{
+//			works.push(str);
+//			break;
+//		}
+//		str = str.substr(end + 1, len - wlen); cout << str << endl;
+//	}
+//	while (!works.empty())
+//	{
+//		string temp = works.top();
+//		cout << temp << " ";
+//		works.pop();
+//	}
+//	cout << endl;
+//	system("pause");
+//	return 0;
+//}
 /**********************************************************************************************************/

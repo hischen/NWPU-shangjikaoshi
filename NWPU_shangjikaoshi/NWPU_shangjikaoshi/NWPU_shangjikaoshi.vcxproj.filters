@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="2010_最长公共子序列求解.cpp">
+    <ClCompile Include="2017_软件工程_8.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
